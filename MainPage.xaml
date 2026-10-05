@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SurveyApp.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="14">
+
+            <Image Source="dotnet_bot.png"
+                   Aspect="AspectFit"
+                   HeightRequest="120" />
+
+            <Label Text="Заявка на доступ к VPN"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Поля со звёздочкой обязательны"
+                   FontSize="13"
+                   FontAttributes="Italic"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,10" />
+
+            <Grid RowDefinitions="Auto,Auto"
+                  ColumnDefinitions="130,*"
+                  RowSpacing="10"
+                  ColumnSpacing="10">
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       Text="Имя *"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+                <Entry x:Name="NameEntry"
+                       Grid.Row="0" Grid.Column="1"
+                       Placeholder="Иван Иванов"
+                       Keyboard="Text"
+                       MaxLength="40" />
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       Text="Телефон *"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+                <Entry x:Name="ContactEntry"
+                       Grid.Row="1" Grid.Column="1"
+                       Placeholder="+7 900 000-00-00"
+                       Keyboard="Telephone"
+                       MaxLength="18" />
+            </Grid>
+                         <Picker x:Name="DevicePicker"
+                    Title="Выберите устройство">
+                <Picker.Items>
+                    <x:String>Windows</x:String>
+                    <x:String>Android</x:String>
+                    <x:String>iPhone</x:String>
+                    <x:String>Роутер</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Тариф"
+                   FontSize="16"
+                   FontAttributes="Bold" />
+            <HorizontalStackLayout Spacing="20">
+                <RadioButton x:Name="Plan50Radio"
+                             Content="50 ГБ"
+                             GroupName="Plan"
+                             Value="50 ГБ"
+                             IsChecked="True" />
+                <RadioButton x:Name="Plan100Radio"
+                             Content="100 ГБ"
+                             GroupName="Plan"
+                             Value="100 ГБ" />
+                <RadioButton x:Name="PlanUnlimRadio"
+                             Content="Безлимит"
+                             GroupName="Plan"
+                             Value="Безлимит" />
+            </HorizontalStackLayout>
+
+            <Label Text="Протоколы"
+                   FontSize="16"
+                   FontAttributes="Bold" />
+            <HorizontalStackLayout Spacing="8">
+                <CheckBox x:Name="AwgCheck"
+                          IsChecked="True"
+                          Color="MediumPurple" />
+                <Label Text="AmneziaWG" VerticalOptions="Center" />
+                <CheckBox x:Name="VlessCheck"
+                          IsChecked="False"
+                          Color="Teal"
+                          Margin="20,0,0,0" />
+                <Label Text="VLESS" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Label Text="Дата начала"
+                   FontSize="16"
+                   FontAttributes="Bold" />
+            <DatePicker x:Name="StartDatePicker"
+                        Format="dd/MM/yyyy"
+                        MinimumDate="10/01/2026"
+                        MaximumDate="12/31/2026"
+                        Date="10/09/2026" />
+
+            <Label x:Name="DevicesLabel"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   Text="{Binding Source={x:Reference DevicesStepper},
+                                  Path=Value,
+                                  Mode=OneWay,
+                                  StringFormat='Количество устройств: {0:F0}'}" />
+            <Stepper x:Name="DevicesStepper"
+                     Minimum="1"
+                     Maximum="5"
+                     Increment="1"
+                     Value="1" />
+
+            <Editor x:Name="CommentEditor"
+                    Placeholder="Комментарий: для чего нужен VPN"
+                    AutoSize="TextChanges"
+                    MaxLength="300" />
+
+            <HorizontalStackLayout Spacing="10">
+                                <Switch x:Name="AgreeSwitch"
+                        IsToggled="False"
+                        OnColor="MediumSeaGreen"
+                        Toggled="OnAgreeToggled" />
+                <Label Text="Согласен с правилами использования"
+                       VerticalOptions="Center" />
+            </HorizontalStackLayout>
+                        <Button x:Name="ShowButton"
+                    Text="Показать результат"
+                    IsEnabled="False"
+                    Clicked="OnShowClicked" />
+
+            <Button x:Name="ClearButton"
+                    Text="Очистить"
+                    Clicked="OnClearClicked" />
+
+            <Label x:Name="ResultLabel"
+                   IsVisible="False"
+                   FontSize="15"
+                   Margin="0,10,0,20" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
